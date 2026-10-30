@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from "@angular/common";
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -7,18 +7,20 @@ import {
   OnInit,
   PLATFORM_ID,
   inject,
-} from '@angular/core';
-import { SeoService } from '../../core/services/seo';
-import { animatePageEnter } from '../../shared/animations/animations';
-import { AboutSection } from '../home/sections/about-section';
-import { ContactSection } from '../home/sections/contact-section';
+} from "@angular/core";
+import { SeoService } from "../../core/services/seo";
+import { animatePageEnter } from "../../shared/animations/animations";
+import { AboutSection } from "../home/sections/about-section";
+import { ContactSection } from "../home/sections/contact-section";
 
 @Component({
-  selector: 'app-about-page',
+  selector: "app-about-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AboutSection, ContactSection],
   template: `
-    <div class="flex flex-col w-full bg-transparent transition-colors duration-300">
+    <div
+      class="flex flex-col w-full bg-transparent transition-colors duration-300"
+    >
       <app-about-section />
       <app-contact-section />
     </div>
@@ -30,12 +32,10 @@ export class AboutPage implements OnInit, AfterViewInit {
   private readonly platformId = inject(PLATFORM_ID);
 
   ngOnInit(): void {
-    // تنظیم متاتگ‌های سئو مخصوص صفحه About
-    this.seo.updatePageSeo('about');
+    this.seo.updatePageSeo("about");
   }
 
   ngAfterViewInit(): void {
-    // اجرای انیمیشن ورود صفحه فقط در محیط مرورگر کلاینت
     if (isPlatformBrowser(this.platformId)) {
       animatePageEnter(this.el.nativeElement);
     }

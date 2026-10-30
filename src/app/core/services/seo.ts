@@ -12,9 +12,6 @@ export class SeoService {
   private readonly meta = inject(Meta);
   private readonly document = inject(DOCUMENT);
 
-  // آدرس نهایی سایت شما (برای تولید لینک‌های Canonical معتبر در سئو)
-  // وقتی سایت را روی گیت‌هاب بردید، این آدرس را به آدرس واقعی خود تغییر دهید
-  // مثال: 'https://ramankhanahmadi.github.io'
   private readonly BASE_URL = "https://ramankhanahmadi.dev";
 
   updatePageSeo(

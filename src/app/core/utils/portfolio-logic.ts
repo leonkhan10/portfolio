@@ -184,9 +184,6 @@ export const UI_TRANSLATIONS: Record<
   },
 };
 
-// =========================================
-// مهارت‌های زبانی (برای نمایش در بخش About)
-// =========================================
 export const LANGUAGE_COMPETENCIES: LanguageCompetency[] = [
   { language: "Persian", level: "Native" },
   { language: "Turkish", level: "Advanced" },
@@ -194,9 +191,6 @@ export const LANGUAGE_COMPETENCIES: LanguageCompetency[] = [
   { language: "Russian", level: "Intermediate B1" },
 ];
 
-// =========================================
-// لیست پروژه‌های پورتفولیو
-// =========================================
 export const PORTFOLIO_PROJECTS: ProjectItem[] = [
   {
     id: "weather-radar",
@@ -353,9 +347,6 @@ export class WeatherStreamService {
   },
 ];
 
-// =========================================
-// لیست سوابق شغلی
-// =========================================
 export const EXPERIENCE_TRANSLATIONS: Record<
   LocaleCode,
   {
@@ -500,9 +491,6 @@ export const EXPERIENCE_TRANSLATIONS: Record<
   ],
 };
 
-// =========================================
-// دسته‌بندی مهارت‌های فنی
-// =========================================
 export const SKILL_CATEGORIES: SkillCategoryGroup[] = [
   {
     id: "frontend",
@@ -544,9 +532,6 @@ export const SKILL_CATEGORIES: SkillCategoryGroup[] = [
   },
 ];
 
-// =========================================
-// راه‌های ارتباطی
-// =========================================
 export const CONTACT_CHANNELS: ContactChannel[] = [
   {
     id: "email",
@@ -573,11 +558,6 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
   },
 ];
 
-// =========================================
-// توابع منطقی (Helpers)
-// =========================================
-
-// فیلتر کردن پروژه‌ها بر اساس دسته‌بندی و عبارت جستجو
 export function filterProjectsByCategory(
   projects: readonly ProjectItem[],
   category: ProjectCategory,
@@ -603,7 +583,6 @@ export function filterProjectsByCategory(
   });
 }
 
-// اعتبارسنجی فیلدهای فرم تماس
 export function validateContactFormInput(payload: ContactFormPayload): {
   valid: boolean;
   errors: Partial<Record<keyof ContactFormPayload, string>>;
@@ -632,7 +611,6 @@ export function validateContactFormInput(payload: ContactFormPayload): {
   };
 }
 
-// تولید متادیتای سئو برای هر صفحه
 export function buildSeoMetadata(
   pageKey: "home" | "about" | "projects" | "skills" | "contact",
 ): SeoMetadata {

@@ -8,7 +8,6 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatIconModule, ScrollRevealDirective],
   template: `
-    <!-- اضافه شدن پس‌زمینه دارک مود به کل بخش About -->
     <section
       id="about"
       aria-labelledby="about-heading"
@@ -16,13 +15,10 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
     >
       <div class="max-w-6xl mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <!-- Image Asset (جایگزین شده با کدهای قبلی) -->
           <div appScrollReveal class="lg:col-span-5 order-2 lg:order-1">
             <div
               class="rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 transition-colors"
             >
-              <!-- در اینجا فرض شده است عکسی با نام vscode-snippet.png در پوشه public دارید -->
-              <!-- اگر نام یا فرمت عکس متفاوت است، src را تغییر دهید -->
               <img
                 src="vscode-snippet.png"
                 alt="Code architecture snippet from VS Code"
@@ -52,7 +48,6 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
               </h2>
             </div>
 
-            <!-- دارک مود برای متن توضیحات -->
             <p
               class="text-slate-600 dark:text-slate-400 text-base leading-relaxed transition-colors"
             >

@@ -30,36 +30,31 @@ import {
   providedIn: "root",
 })
 export class PortfolioStateService {
-  // --- سرویس‌ها و پلتفرم ---
   private readonly document = inject(DOCUMENT);
   private readonly platformId = inject(PLATFORM_ID);
 
-  // --- تنظیمات زبان ---
   readonly localeOptions = LOCALE_OPTIONS;
   readonly currentLocale = signal<LocaleCode>("en");
 
-  // --- وضعیت قالب (تم) ---
   readonly isDarkMode = signal<boolean>(false);
 
-  // --- وضعیت پروژه‌ها و فیلترها ---
   readonly activeCategory = signal<ProjectCategory>("All");
   readonly projectSearchQuery = signal<string>("");
   readonly highlightedSkill = signal<string | null>(null);
 
-  // --- وضعیت مودال پروژه ---
   readonly selectedProject = signal<ProjectItem | null>(null);
   readonly selectedProjectTab = signal<"preview" | "code">("preview");
 
-  // --- داده‌های ثابت (پورتفولیو) ---
   readonly projects = signal<readonly ProjectItem[]>(PORTFOLIO_PROJECTS);
-readonly experiences = computed(() => EXPERIENCE_TRANSLATIONS[this.currentLocale()]);  readonly skillCategories = signal(SKILL_CATEGORIES);
+  readonly experiences = computed(
+    () => EXPERIENCE_TRANSLATIONS[this.currentLocale()],
+  );
+  readonly skillCategories = signal(SKILL_CATEGORIES);
   readonly languages = signal(LANGUAGE_COMPETENCIES);
   readonly contactChannels = signal(CONTACT_CHANNELS);
 
-  // --- پیام‌های ارتباطی ---
   readonly submittedMessages = signal<ContactSubmission[]>([]);
 
-  // --- مقادیر محاسبه شده (Computed) ---
   readonly currentLocaleOption = computed(
     () =>
       this.localeOptions.find((opt) => opt.code === this.currentLocale()) ??
@@ -76,9 +71,6 @@ readonly experiences = computed(() => EXPERIENCE_TRANSLATIONS[this.currentLocale
     ),
   );
 
-  // =========================================
-  // متدهای مدیریت قالب (Dark/Light Mode)
-  // =========================================
   private initTheme(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
@@ -109,9 +101,6 @@ readonly experiences = computed(() => EXPERIENCE_TRANSLATIONS[this.currentLocale
     }
   }
 
-  // =========================================
-  // متدهای مدیریت محتوا (زبان، فیلتر، مودال)
-  // =========================================
   setLocale(code: LocaleCode): void {
     this.currentLocale.set(code);
   }
@@ -138,14 +127,10 @@ readonly experiences = computed(() => EXPERIENCE_TRANSLATIONS[this.currentLocale
     this.selectedProject.set(null);
   }
 
-  // =========================================
-  // دانلود مستقیم فایل رزومه (PDF)
-  // =========================================
   downloadCvPdf(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    const pdfUrl =
-      "https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing";
+    const pdfUrl = "https://drive.google.com/file/d/view?usp=sharing";
 
     window.open(pdfUrl, "_blank");
   }

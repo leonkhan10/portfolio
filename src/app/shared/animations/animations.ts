@@ -1,4 +1,4 @@
-import { animate, stagger } from 'motion';
+import { animate, stagger } from "motion";
 
 export const ANIMATION_TIMINGS = {
   microFeedbackSec: 0.18,
@@ -8,23 +8,21 @@ export const ANIMATION_TIMINGS = {
   easingCurve: [0.16, 1, 0.3, 1] as [number, number, number, number],
 };
 
-// بررسی دسترسی‌پذیری و سازگاری با SSR
 function prefersReducedMotion(): boolean {
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+  if (
+    typeof window === "undefined" ||
+    typeof window.matchMedia !== "function"
+  ) {
     return true;
   }
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-// تابع کمکی برای نمایش فوری المان‌ها (هنگامی که انیمیشن غیرفعال است)
 function applyFallbackStyles(element: HTMLElement): void {
-  element.style.opacity = '1';
-  element.style.transform = 'none';
+  element.style.opacity = "1";
+  element.style.transform = "none";
 }
 
-/**
- * انیمیشن ورود صفحه یا مسیر (Page Enter)
- */
 export function animatePageEnter(container: HTMLElement | null): void {
   if (!container) return;
 
@@ -42,14 +40,14 @@ export function animatePageEnter(container: HTMLElement | null): void {
     {
       duration: ANIMATION_TIMINGS.pageTransitionSec,
       ease: ANIMATION_TIMINGS.easingCurve,
-    }
+    },
   );
 }
 
-/**
- * انیمیشن ظاهر شدن نرم المان در زمان اسکرول (Scroll Reveal)
- */
-export function animateElementReveal(element: HTMLElement | null, delaySec = 0): void {
+export function animateElementReveal(
+  element: HTMLElement | null,
+  delaySec = 0,
+): void {
   if (!element) return;
 
   if (prefersReducedMotion()) {
@@ -67,23 +65,19 @@ export function animateElementReveal(element: HTMLElement | null, delaySec = 0):
       duration: ANIMATION_TIMINGS.scrollRevealSec,
       delay: delaySec,
       ease: ANIMATION_TIMINGS.easingCurve,
-    }
+    },
   );
 }
 
-/**
- * انیمیشن ترتیبی و آبشاری برای لیست‌ها یا کارت‌های فرزند (Stagger)
- */
 export function animateStaggerChildren(
   parent: HTMLElement | null,
-  childSelector = '[data-animate-item]'
+  childSelector = "[data-animate-item]",
 ): void {
   if (!parent) return;
 
   const items = parent.querySelectorAll<HTMLElement>(childSelector);
   if (!items.length) return;
 
-  // حل مشکل مخفی ماندن آیتم‌ها در صورت خاموش بودن انیمیشن
   if (prefersReducedMotion()) {
     items.forEach((item) => applyFallbackStyles(item));
     return;
@@ -99,6 +93,6 @@ export function animateStaggerChildren(
       delay: stagger(ANIMATION_TIMINGS.staggerStepSec),
       duration: ANIMATION_TIMINGS.scrollRevealSec,
       ease: ANIMATION_TIMINGS.easingCurve,
-    }
+    },
   );
 }

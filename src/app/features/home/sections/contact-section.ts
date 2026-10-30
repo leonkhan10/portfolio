@@ -109,7 +109,8 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                     for="name"
                     class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 transition-colors"
                   >
-{{ state.copy().contactNameLabel }}                  </label>
+                    {{ state.copy().contactNameLabel }}
+                  </label>
                   <input
                     id="name"
                     type="text"
@@ -132,7 +133,8 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                     for="email"
                     class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 transition-colors"
                   >
-{{ state.copy().contactEmailLabel }}                  </label>
+                    {{ state.copy().contactEmailLabel }}
+                  </label>
                   <input
                     id="email"
                     type="email"
@@ -155,7 +157,8 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                     for="message"
                     class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 transition-colors"
                   >
-{{ state.copy().contactMessageLabel }}                  </label>
+                    {{ state.copy().contactMessageLabel }}
+                  </label>
                   <textarea
                     id="message"
                     rows="5"

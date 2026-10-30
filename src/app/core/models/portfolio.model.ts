@@ -1,4 +1,4 @@
-export type LocaleCode = 'en' | 'de' ;
+export type LocaleCode = "en" | "de";
 
 export interface LocaleOption {
   code: LocaleCode;
@@ -8,20 +8,20 @@ export interface LocaleOption {
 }
 
 export type ProjectCategory =
-  | 'All'
-  | 'Real-Time App'
-  | 'Fitness SaaS'
-  | 'Marketplace'
-  | 'E-Commerce';
+  | "All"
+  | "Real-Time App"
+  | "Fitness SaaS"
+  | "Marketplace"
+  | "E-Commerce";
 
 export interface ProjectItem {
   id: string;
   slug: string;
   title: string;
-  category: Exclude<ProjectCategory, 'All'>;
+  category: Exclude<ProjectCategory, "All">;
   dotColorClass: string;
   gradientClass: string;
-  mockupVariant: 'weather' | 'fitness' | 'housing' | 'commerce';
+  mockupVariant: "weather" | "fitness" | "housing" | "commerce";
   shortDescription: string;
   architectureSummary: string;
   highlights: string[];
@@ -64,7 +64,7 @@ export interface ContactChannel {
   value: string;
   href: string;
   external?: boolean;
-  iconType: 'email' | 'telegram' | 'linkedin' | 'network';
+  iconType: "email" | "telegram" | "linkedin" | "network";
 }
 
 export interface ContactFormPayload {
