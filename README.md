@@ -39,28 +39,19 @@ To run this project locally, follow these steps:
    cd portfolio
 
 
-Install dependencies:
+## Install dependencies:
 Make sure you have Node.js installed, then run:
 
-Bash
+## Bash
 npm install
-Start the development server:
 
-Bash
+## Start the development server:
+## Bash
 npm start
-Navigate to http://localhost:3000 or http://localhost:4200 in your browser. The application will automatically reload if you change any of the source files.
 
-Build for production:
+Navigate to http://localhost:4200 in your browser. The application will automatically reload if you change any of the source files.
 
-Bash
+## Build for production:
+
+## Bash
 npm run build
-📫 Contact Me
-I am always open to new opportunities, interesting projects, and professional collaborations[cite: 1].
-
-Email: raman.khanahmadi@outlook.com[cite: 1]
-
-LinkedIn: Raman Khan Ahmadi[cite: 1]
-
-Telegram: @Raman_Oracle[cite: 1]
-
-Designed and built by Raman Khan Ahmadi © 2026
