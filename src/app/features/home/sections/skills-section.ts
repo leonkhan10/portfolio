@@ -18,18 +18,22 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
         <!-- Section Header -->
         <div appScrollReveal class="mb-12">
           <app-section-header
-            kicker="Career History"
-            title="Skills & Experience"
+            headingId="skills-heading"
+            [kicker]="state.copy().skillsKicker"
+            [title]="state.copy().skillsTitle"
+            [subtitle]="state.copy().skillsSubtitle"
           />
         </div>
 
         <!-- Experience 2x2 Grid -->
         <div
           appScrollReveal
+          [staggerChildren]="true"
           class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16"
         >
           @for (exp of state.experiences(); track exp.id) {
             <article
+              data-animate-item
               class="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-[#fafafc] dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900 hover:border-brand-200 dark:hover:border-brand-500/50 hover:shadow-md transition-all duration-200 flex flex-col justify-between"
             >
               <div class="space-y-3">

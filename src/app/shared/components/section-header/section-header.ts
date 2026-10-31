@@ -17,6 +17,7 @@ import { ChangeDetectionStrategy, Component, input } from "@angular/core";
       </span>
 
       <h2
+        [attr.id]="headingId() || null"
         class="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight transition-colors"
       >
         {{ title() }}
@@ -37,4 +38,5 @@ export class SectionHeader {
   readonly title = input.required<string>();
   readonly subtitle = input<string>("");
   readonly centered = input<boolean>(false);
+  readonly headingId = input<string>("");
 }

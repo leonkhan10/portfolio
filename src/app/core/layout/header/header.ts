@@ -2,11 +2,12 @@ import { DOCUMENT } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   inject,
   signal,
 } from "@angular/core";
-import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { LocaleCode } from "../../models/portfolio.model";
 import { PortfolioStateService } from "../../services/portfolio-state";
 
@@ -16,6 +17,7 @@ import { PortfolioStateService } from "../../services/portfolio-state";
   imports: [RouterLink, RouterLinkActive, MatIconModule],
   host: {
     "(document:keydown.escape)": "closeMenus()",
+    "(document:click)": "onDocumentClick($event)",
   },
   template: `
     <header
@@ -24,10 +26,10 @@ import { PortfolioStateService } from "../../services/portfolio-state";
       <div
         class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-4"
       >
-        <!-- ۱. لوگوی برند -->
+        <!-- 1. Brand Logo -->
         <a
           routerLink="/"
-          (click)="scrollToSection('home')"
+          (click)="navigateOrScroll('/', 'home', $event)"
           class="flex items-center gap-2.5 group whitespace-nowrap focus-visible:outline-brand-600 rounded-xl"
         >
           <div
@@ -42,7 +44,7 @@ import { PortfolioStateService } from "../../services/portfolio-state";
           </span>
         </a>
 
-        <!-- ۲. منوی ناوبری دسکتاپ -->
+        <!-- 2. Desktop Navigation -->
         <nav
           aria-label="Primary Navigation"
           class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300"
@@ -90,9 +92,9 @@ import { PortfolioStateService } from "../../services/portfolio-state";
           </a>
         </nav>
 
-        <!-- ۳. دکمه‌ها و ابزارهای سمت راست -->
+        <!-- 3. Right Actions (Theme, Locale, Hire Me, Mobile Toggle) -->
         <div class="flex items-center gap-3 shrink-0">
-          <!-- دکمه تغییر تم (Dark/Light Mode) -->
+          <!-- Dark/Light Theme Toggle -->
           <button
             type="button"
             (click)="state.toggleTheme()"
@@ -116,14 +118,14 @@ import { PortfolioStateService } from "../../services/portfolio-state";
             }
           </button>
 
-          <!-- منوی تغییر زبان -->
-          <div class="relative inline-block text-left">
+          <!-- Language Selector -->
+          <div class="relative inline-block text-left" data-lang-menu>
             <button
               type="button"
               id="language-menu-button"
               [attr.aria-expanded]="langMenuOpen()"
               aria-haspopup="listbox"
-              (click)="toggleLangMenu()"
+              (click)="toggleLangMenu($event)"
               class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-2xs hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
             >
               <span
@@ -179,7 +181,7 @@ import { PortfolioStateService } from "../../services/portfolio-state";
             }
           </div>
 
-          <!-- دکمه Hire Me -->
+          <!-- Hire Me CTA -->
           <a
             routerLink="/contact"
             (click)="navigateOrScroll('/contact', 'contact', $event)"
@@ -191,7 +193,7 @@ import { PortfolioStateService } from "../../services/portfolio-state";
             <span>{{ state.copy().hireMe }}</span>
           </a>
 
-          <!-- دکمه همبرگری موبایل -->
+          <!-- Mobile Hamburger Button -->
           <button
             type="button"
             aria-label="Toggle navigation menu"
@@ -206,7 +208,7 @@ import { PortfolioStateService } from "../../services/portfolio-state";
         </div>
       </div>
 
-      <!-- ۴. منوی کشویی موبایل -->
+      <!-- 4. Mobile Drawer Navigation -->
       @if (mobileMenuOpen()) {
         <nav
           aria-label="Mobile Navigation"
@@ -256,11 +258,13 @@ export class Header {
   readonly state = inject(PortfolioStateService);
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
+  private readonly elRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
   readonly langMenuOpen = signal(false);
   readonly mobileMenuOpen = signal(false);
 
-  toggleLangMenu(): void {
+  toggleLangMenu(event: Event): void {
+    event.stopPropagation();
     this.langMenuOpen.update((open) => !open);
   }
 
@@ -273,17 +277,17 @@ export class Header {
     this.mobileMenuOpen.set(false);
   }
 
+  onDocumentClick(event: Event): void {
+    if (!this.langMenuOpen()) return;
+    const target = event.target as HTMLElement | null;
+    if (target && !this.elRef.nativeElement.contains(target)) {
+      this.langMenuOpen.set(false);
+    }
+  }
+
   selectLanguage(code: LocaleCode): void {
     this.state.setLocale(code);
     this.langMenuOpen.set(false);
-  }
-
-  scrollToSection(sectionId: string): void {
-    this.closeMenus();
-    const el = this.document?.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
   }
 
   navigateOrScroll(routePath: string, sectionId: string, event: Event): void {

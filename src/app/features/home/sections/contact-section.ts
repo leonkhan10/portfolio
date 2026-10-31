@@ -115,7 +115,7 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                     id="name"
                     type="text"
                     formControlName="name"
-                    placeholder="e.g. Alex Morgan"
+                    [placeholder]="state.copy().contactNamePlaceholder"
                     class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50 text-slate-900 dark:text-white text-sm outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500"
                   />
                   @if (submittedAttempt() && fieldErrors().name) {
@@ -139,7 +139,7 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                     id="email"
                     type="email"
                     formControlName="email"
-                    placeholder="e.g. alex@example.com"
+                    [placeholder]="state.copy().contactEmailPlaceholder"
                     class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50 text-slate-900 dark:text-white text-sm outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500"
                   />
                   @if (submittedAttempt() && fieldErrors().email) {
@@ -154,24 +154,24 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
 
                 <div>
                   <label
-                    for="message"
+                    for="content"
                     class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 transition-colors"
                   >
                     {{ state.copy().contactMessageLabel }}
                   </label>
                   <textarea
-                    id="message"
+                    id="content"
                     rows="5"
-                    formControlName="message"
-                    placeholder="Hi Raman, let's discuss an Angular role / project..."
+                    formControlName="content"
+                    [placeholder]="state.copy().contactMessagePlaceholder"
                     class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50 text-slate-900 dark:text-white text-sm outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 resize-y"
                   ></textarea>
-                  @if (submittedAttempt() && fieldErrors().message) {
+                  @if (submittedAttempt() && fieldErrors().content) {
                     <p
                       class="mt-1 text-xs text-rose-600 dark:text-rose-400"
                       role="alert"
                     >
-                      {{ fieldErrors().message }}
+                      {{ fieldErrors().content }}
                     </p>
                   }
                 </div>
@@ -181,9 +181,16 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                 >
                   <button
                     type="submit"
-                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow-md shadow-brand-500/25 transition-all cursor-pointer"
+                    [disabled]="state.isSubmittingContact()"
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 disabled:opacity-60 text-white font-semibold text-sm shadow-md shadow-brand-500/25 transition-all cursor-pointer"
                   >
-                    <span>{{ state.copy().contactSubmitBtn }}</span>
+                    <span>
+                      {{
+                        state.isSubmittingContact()
+                          ? state.copy().contactSubmittingBtn
+                          : state.copy().contactSubmitBtn
+                      }}
+                    </span>
                     <mat-icon class="!w-4 !h-4 !text-[16px]">send</mat-icon>
                   </button>
 
@@ -203,7 +210,7 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                 </div>
               </form>
 
-              <!-- لیست پیام‌های ثبت شده -->
+              <!-- Submitted Inquiries List -->
               @if (state.submittedMessages().length > 0) {
                 <div
                   class="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 space-y-2 transition-colors"
@@ -211,7 +218,7 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                   <div
                     class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider transition-colors"
                   >
-                    Recent Dispatched Inquiries ({{
+                    {{ state.copy().contactRecentInquiries }} ({{
                       state.submittedMessages().length
                     }})
                   </div>
@@ -228,7 +235,7 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                           · {{ msg.email }}</span
                         >
                         <p class="text-slate-600 dark:text-slate-400 mt-0.5">
-                          {{ msg.message }}
+                          {{ msg.content }}
                         </p>
                       </div>
                       <span
@@ -254,14 +261,14 @@ export class ContactSection {
   readonly contactForm = this.fb.nonNullable.group({
     name: ["", [Validators.required, Validators.minLength(2)]],
     email: ["", [Validators.required, Validators.email]],
-    message: ["", [Validators.required, Validators.minLength(10)]],
+    content: ["", [Validators.required, Validators.minLength(10)]],
   });
 
   readonly submittedAttempt = signal(false);
   readonly fieldErrors = signal<{
     name?: string;
     email?: string;
-    message?: string;
+    content?: string;
   }>({});
   readonly lastSuccessMessage = signal<string>("");
 
@@ -275,12 +282,13 @@ export class ContactSection {
       return;
     }
 
-    const entry = this.state.recordContactSubmission(rawValue);
-    this.lastSuccessMessage.set(
-      `Message dispatched from ${entry.name}! Raman will respond shortly.`,
-    );
-    this.contactForm.reset();
-    this.submittedAttempt.set(false);
-    this.fieldErrors.set({});
+    this.state.submitContactMessage(rawValue).subscribe((entry) => {
+      this.lastSuccessMessage.set(
+        `Message dispatched from ${entry.name}! Raman will respond shortly.`,
+      );
+      this.contactForm.reset();
+      this.submittedAttempt.set(false);
+      this.fieldErrors.set({});
+    });
   }
 }

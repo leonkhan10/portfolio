@@ -1,13 +1,17 @@
 import {
+  BackendProjectDto,
   ContactChannel,
   ContactFormPayload,
+  ExperienceItem,
   LanguageCompetency,
   LocaleCode,
   LocaleOption,
   ProjectCategory,
   ProjectItem,
+  ProjectMockupVariant,
   SeoMetadata,
   SkillCategoryGroup,
+  UiTranslationDictionary,
 } from "../models/portfolio.model";
 
 export const LOCALE_OPTIONS: LocaleOption[] = [
@@ -25,58 +29,7 @@ export const LOCALE_OPTIONS: LocaleOption[] = [
   },
 ];
 
-// =========================================
-// دیکشنری ترجمه‌های رابط کاربری (UI)
-// =========================================
-export const UI_TRANSLATIONS: Record<
-  LocaleCode,
-  {
-    navHome: string;
-    navAbout: string;
-    navProjects: string;
-    navSkills: string;
-    navContact: string;
-    hireMe: string;
-    heroBadge: string;
-    heroTitle: string;
-    heroRolePrimary: string;
-    heroRoleSecondary: string;
-    heroDescription: string;
-    downloadCv: string;
-    exploreProjects: string;
-    location: string;
-    availability: string;
-    availableTag: string;
-
-    // --------------------------------------------
-
-    aboutKicker: string;
-    aboutTitle: string;
-    aboutDescription: string;
-    aboutDegree: string;
-    aboutUniversity: string;
-    aboutLanguagesTitle: string;
-
-    // ----------------------------------------------
-    contactKicker: string;
-    contactTitle: string;
-    contactSubtitle: string;
-    contactDescription: string;
-    contactNameLabel: string;
-    contactNamePlaceholder: string;
-    contactEmailLabel: string;
-    contactEmailPlaceholder: string;
-    contactMessageLabel: string;
-    contactMessagePlaceholder: string;
-    contactSubmitBtn: string;
-    contactRecentInquiries: string;
-
-    //--------------------------------------------------------------
-    projectsKicker: string;
-    projectsTitle: string;
-    projectsSubtitle: string;
-  }
-> = {
+export const UI_TRANSLATIONS: Record<LocaleCode, UiTranslationDictionary> = {
   en: {
     navHome: "Home",
     navAbout: "About me",
@@ -87,26 +40,37 @@ export const UI_TRANSLATIONS: Record<
     heroBadge: "3+ Years Experience in Full-Stack & Angular",
     heroTitle: "I’m Raman Khan Ahmadi",
     heroRolePrimary: "Full-Stack Engineer",
-    heroRoleSecondary: "Angular & NestJs Specialist",
+    heroRoleSecondary: "Angular & NestJS Specialist",
     heroDescription:
       "I build production-ready web applications with Angular, TypeScript, NestJS, and MongoDB. Passionate about modern component architecture, state management, and building robust RESTful APIs.",
+    heroCardBadge: "Angular 21 + NestJS",
+    heroCardTag: "Full-Stack",
+    heroCardSubtitle: "Angular & NestJS Engineer",
     downloadCv: "Download CV",
     exploreProjects: "Explore Projects",
     location: "Saint Petersburg, Russia",
     availability: "Open to Remote B2B/EoR & Europe Relocation",
     availableTag: "Available",
 
-    //------------------------------------------------------------------------------
-
     aboutKicker: "Background",
     aboutTitle: "About me",
     aboutDescription:
-      "I’m a Full-Stack Engineer with 3+ years of experience building and migrating complex web applications. From upgrading live smart-building IoT dashboards to architecting modern Angular 20+ and Node.js platforms, I enjoy delivering robust features from UI to API. I work in Agile teams, utilize Docker for reproducible environments, and write automated tests to ensure stable releases.",
-    aboutDegree: "Computer Science",
+      "I’m a Full-Stack Engineer with 3+ years of experience building and migrating complex web applications. From upgrading live smart-building IoT dashboards to architecting modern Angular 20+ and NestJS platforms, I enjoy delivering robust features from UI to API. I work in Agile teams, utilize Docker for reproducible environments, and write automated tests to ensure stable releases.",
+    aboutDegree: "Computer Science (B.Sc.)",
     aboutUniversity: "University of the People — USA (In progress)",
     aboutLanguagesTitle: "Languages",
 
-    //-------------------------------------------------------------------------------
+    projectsKicker: "Portfolio",
+    projectsTitle: "Projects",
+    projectsSubtitle:
+      "Turning complex problems into simple, effective full-stack and frontend solutions.",
+    projectGithubBtn: "GitHub",
+    projectLiveBtn: "Live Site",
+
+    skillsKicker: "Career History",
+    skillsTitle: "Skills & Experience",
+    skillsSubtitle:
+      "Click any technology badge below to highlight where it was applied in my career.",
 
     contactKicker: "Reach Out",
     contactTitle: "Contact me",
@@ -119,15 +83,13 @@ export const UI_TRANSLATIONS: Record<
     contactEmailPlaceholder: "e.g. alex@example.com",
     contactMessageLabel: "Your Message",
     contactMessagePlaceholder:
-      "Hi Raman, let's discuss an Angular role / project...",
+      "Hi Raman, let’s discuss an Angular / Full-Stack role or project...",
     contactSubmitBtn: "Send message",
+    contactSubmittingBtn: "Sending...",
     contactRecentInquiries: "Recent Dispatched Inquiries",
 
-    //---------------------------------------------------------------
-    projectsKicker: "Portfolio",
-    projectsTitle: "Projects",
-    projectsSubtitle:
-      "Turning complex problems into simple, effective solutions.",
+    footerRights: "© 2026 Raman Khan Ahmadi. All rights reserved.",
+    footerBackToTop: "Back to top",
   },
   de: {
     navHome: "Startseite",
@@ -136,29 +98,40 @@ export const UI_TRANSLATIONS: Record<
     navSkills: "Fähigkeiten & Erfahrung",
     navContact: "Kontakt",
     hireMe: "Mich einstellen",
-    heroBadge: "3+ Jahre Erfahrung in skalierbaren Frontends",
+    heroBadge: "3+ Jahre Erfahrung in Full-Stack & Angular",
     heroTitle: "Ich bin Raman Khan Ahmadi",
-    heroRolePrimary: "Angular-Entwickler",
-    heroRoleSecondary: "Frontend-Ingenieur",
+    heroRolePrimary: "Full-Stack-Ingenieur",
+    heroRoleSecondary: "Angular & NestJS Spezialist",
     heroDescription:
-      "Ich entwickle skalierbare, responsive Webanwendungen mit Angular & TypeScript. Leidenschaftlich in Bezug auf Komponentenarchitektur, State Management und moderne UI-Performance.",
+      "Ich entwickle produktionsreife Webanwendungen mit Angular, TypeScript, NestJS und MongoDB. Leidenschaftlich in Bezug auf moderne Komponentenarchitektur, State Management und robuste RESTful-APIs.",
+    heroCardBadge: "Angular 21 + NestJS",
+    heroCardTag: "Full-Stack",
+    heroCardSubtitle: "Angular & NestJS Ingenieur",
     downloadCv: "Lebenslauf herunterladen",
     exploreProjects: "Projekte entdecken",
     location: "Sankt Petersburg, Russland",
-    availability: "Offen für Vollzeit- & Remote-Rollen",
+    availability: "Offen für Remote B2B/EoR & Umzug nach Europa",
     availableTag: "Verfügbar",
-
-    //------------------------------------------------------------------------------
 
     aboutKicker: "Hintergrund",
     aboutTitle: "Über mich",
     aboutDescription:
-      "Ich bin ein Full-Stack-Ingenieur mit über 3 Jahren Erfahrung in der Entwicklung und Migration komplexer Webanwendungen. Von der Aktualisierung von Smart-Building-IoT-Dashboards bis hin zur Architektur moderner Angular 20+ und Node.js Plattformen – ich liefere robuste Funktionen von der UI bis zur API. Ich arbeite in agilen Teams, nutze Docker für reproduzierbare Umgebungen und schreibe automatisierte Tests, um stabile Releases zu gewährleisten.",
-    aboutDegree: "Informatik (Computer Science)",
+      "Ich bin ein Full-Stack-Ingenieur mit über 3 Jahren Erfahrung in der Entwicklung und Migration komplexer Webanwendungen. Von der Aktualisierung von Smart-Building-IoT-Dashboards bis hin zur Architektur moderner Angular 20+ und NestJS-Plattformen liefere ich robuste Funktionen von der UI bis zur API. Ich arbeite in agilen Teams, nutze Docker für reproduzierbare Umgebungen und schreibe automatisierte Tests für stabile Releases.",
+    aboutDegree: "Informatik / Computer Science (B.Sc.)",
     aboutUniversity: "University of the People — USA (Laufend)",
     aboutLanguagesTitle: "Sprachen",
 
-    //--------------------------------------------------------------------------------
+    projectsKicker: "Portfolio",
+    projectsTitle: "Projekte",
+    projectsSubtitle:
+      "Komplexe Probleme in einfache, effektive Full-Stack- und Frontend-Lösungen verwandeln.",
+    projectGithubBtn: "GitHub",
+    projectLiveBtn: "Live-Demo",
+
+    skillsKicker: "Beruflicher Werdegang",
+    skillsTitle: "Fähigkeiten & Erfahrung",
+    skillsSubtitle:
+      "Klicken Sie unten auf eine Technologie, um hervorzuheben, wo ich sie eingesetzt habe.",
 
     contactKicker: "Kontakt aufnehmen",
     contactTitle: "Kontaktiere mich",
@@ -171,30 +144,39 @@ export const UI_TRANSLATIONS: Record<
     contactEmailPlaceholder: "z.B. alex@beispiel.com",
     contactMessageLabel: "Ihre Nachricht",
     contactMessagePlaceholder:
-      "Hallo Raman, lass uns über ein Angular-Projekt sprechen...",
+      "Hallo Raman, lass uns über ein Angular / Full-Stack-Projekt sprechen...",
     contactSubmitBtn: "Nachricht senden",
+    contactSubmittingBtn: "Wird gesendet...",
     contactRecentInquiries: "Kürzlich gesendete Anfragen",
 
-    //---------------------------------------------------------------
-
-    projectsKicker: "Portfolio",
-    projectsTitle: "Projekte",
-    projectsSubtitle:
-      "Komplexe Probleme in einfache, effektive Lösungen verwandeln.",
+    footerRights: "© 2026 Raman Khan Ahmadi. Alle Rechte vorbehalten.",
+    footerBackToTop: "Nach oben",
   },
 };
 
-export const LANGUAGE_COMPETENCIES: LanguageCompetency[] = [
-  { language: "Persian", level: "Native" },
-  { language: "Turkish", level: "Advanced" },
-  { language: "English", level: "Intermediate B1" },
-  { language: "Russian", level: "Intermediate B1" },
-];
+export const LANGUAGE_COMPETENCIES_BY_LOCALE: Record<
+  LocaleCode,
+  LanguageCompetency[]
+> = {
+  en: [
+    { language: "Persian", level: "Native" },
+    { language: "Turkish", level: "Advanced" },
+    { language: "English", level: "Intermediate B1" },
+    { language: "Russian", level: "Intermediate B1" },
+  ],
+  de: [
+    { language: "Persisch", level: "Muttersprache" },
+    { language: "Türkisch", level: "Fortgeschritten" },
+    { language: "Englisch", level: "Mittelstufe B1" },
+    { language: "Russisch", level: "Mittelstufe B1" },
+  ],
+};
+
+export const LANGUAGE_COMPETENCIES = LANGUAGE_COMPETENCIES_BY_LOCALE.en;
 
 export const PORTFOLIO_PROJECTS: ProjectItem[] = [
   {
     id: "weather-radar",
-    slug: "weather-radar-forecast",
     title: "Weather Radar & Forecast",
     category: "Real-Time App",
     dotColorClass: "bg-brand-500",
@@ -202,38 +184,13 @@ export const PORTFOLIO_PROJECTS: ProjectItem[] = [
     mockupVariant: "weather",
     shortDescription:
       "Real-time weather analytics application featuring dynamic geolocation tracking and responsive widgets.",
-    architectureSummary:
-      "Reactive stream pipeline built with Angular Signals and RxJS operators (switchMap, debounceTime, shareReplay) consuming Open-Meteo & Geolocation APIs with zero-flicker caching.",
-    highlights: [
-      "Automatic browser geolocation with fallback city search & debounce streams",
-      "Hourly & 7-day forecast widgets with UV index, wind vectors, and precipitation radar",
-      "OnPush change detection with Signals for sub-16ms frame rendering",
-    ],
     tags: ["Angular", "RxJS", "REST API"],
-    codeFileName: "weather-stream.service.ts",
-    codeSnippet: `@Injectable({ providedIn: 'root' })
-export class WeatherStreamService {
-  private readonly http = inject(HttpClient);
-  readonly selectedCity = signal<string>('Saint Petersburg');
-
-  readonly forecast$ = toObservable(this.selectedCity).pipe(
-    debounceTime(250),
-    distinctUntilChanged(),
-    switchMap((city) => this.http.get<ForecastDto>(\`/api/weather?q=\${city}\`)),
-    shareReplay({ bufferSize: 1, refCount: true })
-  );
-}`,
-    metrics: [
-      { label: "Update Latency", value: "< 120ms" },
-      { label: "Lighthouse Perf", value: "99 / 100" },
-      { label: "Architecture", value: "Signals + RxJS" },
-    ],
     repoUrl: "https://github.com/ramankhanahmadi/weather-radar-angular",
-    liveUrl: "/projects?preview=weather-radar",
+    liveUrl: "https://github.com/ramankhanahmadi/weather-radar-angular",
+    isVisible: true,
   },
   {
     id: "fitness-tracker",
-    slug: "fitness-workout-tracker",
     title: "Fitness Workout Tracker",
     category: "Fitness SaaS",
     dotColorClass: "bg-emerald-500",
@@ -241,42 +198,13 @@ export class WeatherStreamService {
     mockupVariant: "fitness",
     shortDescription:
       "Dynamic workout logging interface with schedule planner, performance graphs, and local sync.",
-    architectureSummary:
-      "Modular standalone Angular architecture using NgPrime components, reactive form arrays for custom exercise sets, and offline-first local storage state synchronization.",
-    highlights: [
-      "Interactive weekly split planner with drag-ready set/rep progression tracking",
-      "Real-time volume & personal record (PR) computation using Angular computed() signals",
-      "Offline persistence with automatic hydration and JSON workout export",
-    ],
     tags: ["Angular", "TypeScript", "NgPrime"],
-    codeFileName: "workout-planner.store.ts",
-    codeSnippet: `export class WorkoutPlannerStore {
-  readonly sessions = signal<WorkoutSession[]>(loadSyncedSessions());
-
-  readonly weeklyVolumeKg = computed(() =>
-    this.sessions().reduce(
-      (sum, s) => sum + s.sets.reduce((acc, set) => acc + set.weight * set.reps, 0),
-      0
-    )
-  );
-
-  addCompletedSet(sessionId: string, newSet: ExerciseSet): void {
-    this.sessions.update((list) =>
-      list.map((s) => (s.id === sessionId ? { ...s, sets: [...s.sets, newSet] } : s))
-    );
-  }
-}`,
-    metrics: [
-      { label: "State Sync", value: "Offline-First" },
-      { label: "UI Library", value: "PrimeNG + Tailwind" },
-      { label: "Type Safety", value: "100% Strict TS" },
-    ],
     repoUrl: "https://github.com/ramankhanahmadi/fitness-workout-tracker",
-    liveUrl: "/projects?preview=fitness-tracker",
+    liveUrl: "https://github.com/ramankhanahmadi/fitness-workout-tracker",
+    isVisible: true,
   },
   {
     id: "housing-hub",
-    slug: "us-housing-rental-hub",
     title: "US Housing Rental Hub",
     category: "Marketplace",
     dotColorClass: "bg-brand-500",
@@ -284,36 +212,13 @@ export class WeatherStreamService {
     mockupVariant: "housing",
     shortDescription:
       "Real estate portal to compare and view housing prices, metrics, and amenities across US cities.",
-    architectureSummary:
-      "High-density marketplace directory built with Angular Material & Tailwind CSS featuring multi-criteria filtering, side-by-side property comparison, and route-level lazy loading.",
-    highlights: [
-      "Instant multi-faceted filtering by price tier, city metro area, bedrooms, and amenities",
-      "Side-by-side rental yield and price-per-sqft comparison matrix",
-      "SSR-ready semantic property cards with dynamic Meta & Title SEO tags",
-    ],
     tags: ["Angular", "Material", "Tailwind"],
-    codeFileName: "property-filter.computed.ts",
-    codeSnippet: `readonly filteredListings = computed(() => {
-  const query = this.searchQuery().toLowerCase().trim();
-  const maxRent = this.maxMonthlyRent();
-
-  return this.properties().filter((item) => {
-    const matchesCity = !query || item.city.toLowerCase().includes(query);
-    const matchesBudget = item.monthlyRent <= maxRent;
-    return matchesCity && matchesBudget;
-  });
-});`,
-    metrics: [
-      { label: "Filter Speed", value: "< 8ms (1k items)" },
-      { label: "Design System", value: "Material 3 + Tailwind" },
-      { label: "Routing", value: "Lazy Standalone" },
-    ],
     repoUrl: "https://github.com/ramankhanahmadi/us-housing-rental-hub",
-    liveUrl: "/projects?preview=housing-hub",
+    liveUrl: "https://github.com/ramankhanahmadi/us-housing-rental-hub",
+    isVisible: true,
   },
   {
     id: "commerce-checkout",
-    slug: "commerce-cart-checkout",
     title: "Commerce Cart & Checkout",
     category: "E-Commerce",
     dotColorClass: "bg-blue-500",
@@ -321,44 +226,75 @@ export class WeatherStreamService {
     mockupVariant: "commerce",
     shortDescription:
       "Interactive catalog with shopping cart management, form validation, and reactive payment flows.",
-    architectureSummary:
-      "End-to-end e-commerce checkout flow featuring deterministic signal state management, multi-step reactive form validation, promo code calculation, and REST API integration.",
-    highlights: [
-      "Reactive shopping cart with optimistic quantity updates, tax/shipping calculation, and promo codes",
-      "Strict Reactive Forms validation for shipping address, card Luhn check, and billing steps",
-      "Protected route guards and modular service layer for RESTful order submission",
-    ],
     tags: ["Angular", "State Mgmt", "Bootstrap"],
-    codeFileName: "cart-checkout.facade.ts",
-    codeSnippet: `readonly cartSummary = computed(() => {
-  const items = this.cartItems();
-  const subtotal = items.reduce((acc, item) => acc + item.price * item.qty, 0);
-  const discount = this.activeCoupon() ? subtotal * 0.15 : 0;
-  const total = Math.max(0, subtotal - discount);
-  return { subtotal, discount, total, count: items.length };
-});`,
-    metrics: [
-      { label: "Form Engine", value: "Typed Reactive Forms" },
-      { label: "Cart State", value: "Signal Store" },
-      { label: "Validation", value: "Sync + Async Guards" },
-    ],
     repoUrl: "https://github.com/ramankhanahmadi/commerce-cart-checkout",
-    liveUrl: "/projects?preview=commerce-checkout",
+    liveUrl: "https://github.com/ramankhanahmadi/commerce-cart-checkout",
+    isVisible: true,
   },
 ];
 
-export const EXPERIENCE_TRANSLATIONS: Record<
-  LocaleCode,
+const CATEGORY_VISUAL_CONFIG: Record<
+  Exclude<ProjectCategory, "All">,
   {
-    id: string;
-    role: string;
-    company: string;
-    teamSuffix?: string;
-    period: string;
-    description: string;
-    skills: string[];
-  }[]
+    dotColorClass: string;
+    gradientClass: string;
+    mockupVariant: ProjectMockupVariant;
+  }
 > = {
+  "Real-Time App": {
+    dotColorClass: "bg-brand-500",
+    gradientClass: "from-indigo-50 via-slate-100 to-purple-50",
+    mockupVariant: "weather",
+  },
+  "Fitness SaaS": {
+    dotColorClass: "bg-emerald-500",
+    gradientClass: "from-violet-50 via-slate-100 to-indigo-50",
+    mockupVariant: "fitness",
+  },
+  Marketplace: {
+    dotColorClass: "bg-brand-500",
+    gradientClass: "from-purple-50 via-slate-100 to-pink-50",
+    mockupVariant: "housing",
+  },
+  "E-Commerce": {
+    dotColorClass: "bg-blue-500",
+    gradientClass: "from-slate-100 via-sky-50 to-indigo-50",
+    mockupVariant: "commerce",
+  },
+};
+
+export function mapBackendProjectToItem(dto: BackendProjectDto): ProjectItem {
+  const validCategories: Exclude<ProjectCategory, "All">[] = [
+    "Real-Time App",
+    "Fitness SaaS",
+    "Marketplace",
+    "E-Commerce",
+  ];
+
+  const matchedCategory = validCategories.includes(
+    dto.category as Exclude<ProjectCategory, "All">,
+  )
+    ? (dto.category as Exclude<ProjectCategory, "All">)
+    : "Real-Time App";
+
+  const visual = CATEGORY_VISUAL_CONFIG[matchedCategory];
+
+  return {
+    id: dto.id,
+    title: dto.title,
+    shortDescription: dto.shortDescription,
+    category: matchedCategory,
+    tags: Array.isArray(dto.tags) ? dto.tags : [],
+    repoUrl: dto.repoUrl,
+    liveUrl: dto.liveUrl || dto.repoUrl,
+    isVisible: dto.isVisible,
+    dotColorClass: visual.dotColorClass,
+    gradientClass: visual.gradientClass,
+    mockupVariant: visual.mockupVariant,
+  };
+}
+
+export const EXPERIENCE_TRANSLATIONS: Record<LocaleCode, ExperienceItem[]> = {
   en: [
     {
       id: "exp-1",
@@ -417,7 +353,7 @@ export const EXPERIENCE_TRANSLATIONS: Record<
         "Developed responsive frontend applications in collaboration with UX/UI designers. Implemented secure authentication flows, managed complex state for e-commerce carts, and integrated RESTful APIs using Angular and Bootstrap 5.",
       skills: [
         "Angular",
-        "REST APIs",
+        "RESTful API",
         "State Management",
         "Bootstrap 5",
         "UI Integration",
@@ -452,8 +388,8 @@ export const EXPERIENCE_TRANSLATIONS: Record<
       skills: [
         "React 18",
         "TypeScript",
-        "Frontend-Architektur",
-        "Unit-Tests",
+        "Frontend Architecture",
+        "Unit Testing",
         "Agile/Scrum",
       ],
     },
@@ -470,7 +406,7 @@ export const EXPERIENCE_TRANSLATIONS: Record<
         "Linux",
         "Docker",
         "Git",
-        "Finanztechnologie",
+        "Financial Tech",
       ],
     },
     {
@@ -482,55 +418,104 @@ export const EXPERIENCE_TRANSLATIONS: Record<
         "Entwicklung responsiver Frontend-Anwendungen in Zusammenarbeit mit UX/UI-Designern. Implementierung sicherer Authentifizierungsabläufe, Verwaltung komplexer Zustände für E-Commerce-Warenkörbe und Integration von RESTful APIs mit Angular und Bootstrap 5.",
       skills: [
         "Angular",
-        "REST-APIs",
+        "RESTful API",
         "State Management",
         "Bootstrap 5",
-        "UI-Integration",
+        "UI Integration",
       ],
     },
   ],
 };
 
-export const SKILL_CATEGORIES: SkillCategoryGroup[] = [
-  {
-    id: "frontend",
-    title: "Frontend Development",
-    dotColorClass: "bg-brand-600",
-    skills: [
-      "Angular",
-      "TypeScript",
-      "JavaScript",
-      "RxJS",
-      "Angular Material",
+export const SKILL_CATEGORIES_BY_LOCALE: Record<
+  LocaleCode,
+  SkillCategoryGroup[]
+> = {
+  en: [
+    {
+      id: "frontend",
+      title: "Frontend Development",
+      dotColorClass: "bg-brand-600",
+      skills: [
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "RxJS",
+        "Angular Material",
+        "HTML5",
+        "CSS3",
+        "SCSS / Sass",
+        "Bootstrap 5",
+        "Tailwind CSS",
+      ],
+    },
+    {
+      id: "backend",
+      title: "Backend & Database",
+      dotColorClass: "bg-indigo-600",
+      skills: [
+        "NestJS",
+        "Node.js",
+        "MongoDB",
+        "Prisma",
+        "MySQL",
+        "Oracle PL/SQL",
+        "SQL",
+        "RESTful API",
+        "Linux",
+      ],
+    },
+    {
+      id: "tools",
+      title: "Tools & DevOps",
+      dotColorClass: "bg-violet-600",
+      skills: ["Docker", "Git", "GitHub", "GitLab", "VMware"],
+    },
+  ],
+  de: [
+    {
+      id: "frontend",
+      title: "Frontend-Entwicklung",
+      dotColorClass: "bg-brand-600",
+      skills: [
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "RxJS",
+        "Angular Material",
+        "HTML5",
+        "CSS3",
+        "SCSS / Sass",
+        "Bootstrap 5",
+        "Tailwind CSS",
+      ],
+    },
+    {
+      id: "backend",
+      title: "Backend & Datenbanken",
+      dotColorClass: "bg-indigo-600",
+      skills: [
+        "NestJS",
+        "Node.js",
+        "MongoDB",
+        "Prisma",
+        "MySQL",
+        "Oracle PL/SQL",
+        "SQL",
+        "RESTful API",
+        "Linux",
+      ],
+    },
+    {
+      id: "tools",
+      title: "Tools & DevOps",
+      dotColorClass: "bg-violet-600",
+      skills: ["Docker", "Git", "GitHub", "GitLab", "VMware"],
+    },
+  ],
+};
 
-      "HTML5",
-      "CSS3",
-      "SCSS / Sass",
-      "Bootstrap 5",
-      "Tailwind CSS",
-    ],
-  },
-  {
-    id: "backend",
-    title: "Backend & Database",
-    dotColorClass: "bg-indigo-600",
-    skills: [
-      "Oracle PL/SQL",
-      "SQL",
-      "MongoDB",
-      "RESTful API",
-      "Linux Essentials",
-      "FireBase",
-      "NestJS",
-    ],
-  },
-  {
-    id: "tools",
-    title: "Tools & DevOps",
-    dotColorClass: "bg-violet-600",
-    skills: ["Git", "GitHub", "GitLab", "Docker", "VMware"],
-  },
-];
+export const SKILL_CATEGORIES = SKILL_CATEGORIES_BY_LOCALE.en;
 
 export const CONTACT_CHANNELS: ContactChannel[] = [
   {
@@ -565,6 +550,9 @@ export function filterProjectsByCategory(
 ): ProjectItem[] {
   const normalizedQuery = searchQuery.trim().toLowerCase();
   return projects.filter((project) => {
+    if (project.isVisible === false) {
+      return false;
+    }
     const matchesCategory = category === "All" || project.category === category;
     if (!matchesCategory) {
       return false;
@@ -590,7 +578,7 @@ export function validateContactFormInput(payload: ContactFormPayload): {
   const errors: Partial<Record<keyof ContactFormPayload, string>> = {};
   const trimmedName = payload.name.trim();
   const trimmedEmail = payload.email.trim();
-  const trimmedMessage = payload.message.trim();
+  const trimmedContent = payload.content.trim();
 
   if (!trimmedName || trimmedName.length < 2) {
     errors.name = "Please enter your name (at least 2 characters).";
@@ -601,8 +589,8 @@ export function validateContactFormInput(payload: ContactFormPayload): {
     errors.email = "Please enter a valid email address.";
   }
 
-  if (!trimmedMessage || trimmedMessage.length < 10) {
-    errors.message = "Please enter a message with at least 10 characters.";
+  if (!trimmedContent || trimmedContent.length < 10) {
+    errors.content = "Please enter a message with at least 10 characters.";
   }
 
   return {
@@ -614,34 +602,35 @@ export function validateContactFormInput(payload: ContactFormPayload): {
 export function buildSeoMetadata(
   pageKey: "home" | "about" | "projects" | "skills" | "contact",
 ): SeoMetadata {
-  const baseTitle = "Raman Khan Ahmadi | Angular Developer & Frontend Engineer";
+  const baseTitle =
+    "Raman Khan Ahmadi | Full-Stack Engineer (Angular & NestJS)";
   switch (pageKey) {
     case "about":
       return {
         title: `About Me — ${baseTitle}`,
         description:
-          "Learn about Raman Khan Ahmadi, B.Sc. in System and Applied Software at ITMO University, Angular 18+ specialist, and multilingual frontend engineer.",
+          "Learn about Raman Khan Ahmadi, Full-Stack Engineer specializing in Angular 21, NestJS, TypeScript, MongoDB, and Docker.",
         canonicalPath: "/about",
       };
     case "projects":
       return {
         title: `Projects & Architecture — ${baseTitle}`,
         description:
-          "Explore scalable Angular & TypeScript projects by Raman Khan Ahmadi: Weather Radar & Forecast, Fitness Workout Tracker, US Housing Rental Hub, and Commerce Cart.",
+          "Explore scalable Angular, TypeScript, and NestJS projects by Raman Khan Ahmadi: Weather Radar, Fitness Workout Tracker, US Housing Hub, and Commerce Cart.",
         canonicalPath: "/projects",
       };
     case "skills":
       return {
         title: `Skills & Career Experience — ${baseTitle}`,
         description:
-          "Career history and technical skills of Raman Khan Ahmadi across Angular, TypeScript, RxJS, Angular Material, NgPrime, Tailwind CSS, and Oracle PL/SQL.",
+          "Career history and technical skills of Raman Khan Ahmadi across Angular, NestJS, TypeScript, RxJS, MongoDB, Prisma, Tailwind CSS, and Oracle PL/SQL.",
         canonicalPath: "/skills",
       };
     case "contact":
       return {
         title: `Contact Raman Khan Ahmadi — ${baseTitle}`,
         description:
-          "Get in touch with Raman Khan Ahmadi for full-time or remote Angular Developer and Frontend Engineer opportunities.",
+          "Get in touch with Raman Khan Ahmadi for full-time, B2B/EoR remote, or relocation Full-Stack & Angular Engineer opportunities.",
         canonicalPath: "/contact",
       };
     case "home":
@@ -649,7 +638,7 @@ export function buildSeoMetadata(
       return {
         title: baseTitle,
         description:
-          "I build scalable, responsive web applications with Angular & TypeScript. Passionate about component architecture, state management, and modern UI performance.",
+          "I build production-ready web applications with Angular, TypeScript, NestJS, and MongoDB. Passionate about modern component architecture and robust RESTful APIs.",
         canonicalPath: "/",
       };
   }

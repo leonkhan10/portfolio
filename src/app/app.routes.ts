@@ -1,39 +1,38 @@
-import { Routes } from '@angular/router';
+import { Routes } from "@angular/router";
 
 export const routes: Routes = [
   {
-    path: '',
-    title: 'Raman Khan Ahmadi | Angular Developer & Frontend Engineer',
-    loadComponent: () =>
-      import('./features/home/home').then((m) => m.HomePage),
+    path: "",
+    title: "Raman Khan Ahmadi | Full-Stack Engineer (Angular & NestJS)",
+    loadComponent: () => import("./features/home/home").then((m) => m.HomePage),
   },
   {
-    path: 'about',
-    title: 'About Me — Raman Khan Ahmadi | Angular Developer',
+    path: "about",
+    title: "About Me — Raman Khan Ahmadi | Full-Stack Engineer",
     loadComponent: () =>
-      import('./features/about/about-page').then((m) => m.AboutPage),
+      import("./features/about/about-page").then((m) => m.AboutPage),
   },
   {
-    path: 'projects',
-    title: 'Projects & Architecture — Raman Khan Ahmadi',
+    path: "projects",
+    title: "Projects & Architecture — Raman Khan Ahmadi",
     loadComponent: () =>
-      import('./features/projects/projects-page').then((m) => m.ProjectsPage),
+      import("./features/projects/projects-page").then((m) => m.ProjectsPage),
   },
   {
-    path: 'skills',
-    title: 'Skills & Career Experience — Raman Khan Ahmadi',
+    path: "skills",
+    title: "Skills & Career Experience — Raman Khan Ahmadi",
     loadComponent: () =>
-      import('./features/skills/skills-page').then((m) => m.SkillsPage),
+      import("./features/skills/skills-page").then((m) => m.SkillsPage),
   },
   {
-    path: 'contact',
-    title: 'Contact — Raman Khan Ahmadi | Angular Developer',
+    path: "contact",
+    title: "Contact — Raman Khan Ahmadi | Full-Stack Engineer",
     loadComponent: () =>
-      import('./features/contact/contact-page').then((m) => m.ContactPage),
+      import("./features/contact/contact-page").then((m) => m.ContactPage),
   },
   {
-    path: '**',
-    redirectTo: '',
-    pathMatch: 'full',
+    path: "**",
+    redirectTo: "",
+    pathMatch: "full",
   },
 ];

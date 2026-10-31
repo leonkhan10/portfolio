@@ -2,33 +2,77 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <title>Raman Khan Ahmadi</title>
+    <title>Raman Khan Ahmadi | Full-Stack Engineer (Angular & NestJS)</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
-    <meta name="description" content="Portfolio of Raman Khan Ahmadi, Angular Developer & Frontend Engineer building scalable web applications." />
-    
+
+    <meta
+      name="description"
+      content="Portfolio of Raman Khan Ahmadi, Full-Stack Engineer specializing in Angular, TypeScript, NestJS, Prisma, and MongoDB."
+    />
+
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Prevent Dark Mode Flash (FOUC) on SSR / Initial Load -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          if (saved === "dark" || (!saved && prefersDark)) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Raman Khan Ahmadi",
-        "jobTitle": "Angular Developer & Frontend Engineer",
-        "alumniOf": { "@type": "CollegeOrUniversity", "name": "ITMO University" },
-        "address": { "@type": "PostalAddress", "addressLocality": "Saint Petersburg", "addressCountry": "Russia" },
+        "jobTitle": "Full-Stack Engineer (Angular & NestJS)",
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "University of the People"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Saint Petersburg",
+          "addressCountry": "Russia"
+        },
         "email": "mailto:raman.khanahmadi@outlook.com",
-        "knowsAbout": ["Angular", "TypeScript", "RxJS", "JavaScript", "Tailwind CSS", "Angular Material", "NgPrime", "Oracle PL/SQL", "Docker"]
+        "knowsAbout": [
+          "Angular",
+          "NestJS",
+          "TypeScript",
+          "RxJS",
+          "MongoDB",
+          "Prisma",
+          "MySQL",
+          "Tailwind CSS",
+          "Angular Material",
+          "Oracle PL/SQL",
+          "Docker"
+        ]
       }
     </script>
   </head>
-  
-  <body class="min-h-screen flex flex-col font-sans antialiased bg-[#fafafc] text-slate-900 selection:bg-violet-100 selection:text-violet-700 dark:bg-slate-950 dark:text-slate-100 dark:selection:bg-violet-900 dark:selection:text-violet-200">
+
+  <body
+    class="min-h-screen flex flex-col font-sans antialiased bg-[#fafafc] text-slate-900 selection:bg-violet-100 selection:text-violet-700 dark:bg-slate-950 dark:text-slate-100 dark:selection:bg-violet-900 dark:selection:text-violet-200"
+  >
     <app-root></app-root>
   </body>
 </html>

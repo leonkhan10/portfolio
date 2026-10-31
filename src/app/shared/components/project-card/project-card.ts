@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component, input } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { ProjectItem } from "../../../core/models/portfolio.model";
+import { PortfolioStateService } from "../../../core/services/portfolio-state";
 
 @Component({
   selector: "app-project-card",
@@ -140,7 +146,7 @@ import { ProjectItem } from "../../../core/models/portfolio.model";
               <mat-icon class="!w-3.5 !h-3.5 !text-[14px] leading-none"
                 >code</mat-icon
               >
-              <span>GitHub</span>
+              <span>{{ state.copy().projectGithubBtn }}</span>
             </a>
 
             <a
@@ -150,7 +156,7 @@ import { ProjectItem } from "../../../core/models/portfolio.model";
               [attr.aria-label]="'Open live preview for ' + project().title"
               class="flex-1 py-1.5 px-2 text-center text-xs font-semibold rounded-lg bg-brand-600 hover:bg-brand-700 dark:bg-brand-600 dark:hover:bg-brand-500 text-white transition-colors inline-flex items-center justify-center gap-1 whitespace-nowrap cursor-pointer"
             >
-              <span>Live Site</span>
+              <span>{{ state.copy().projectLiveBtn }}</span>
               <mat-icon class="!w-3.5 !h-3.5 !text-[14px] leading-none"
                 >open_in_new</mat-icon
               >
@@ -162,5 +168,6 @@ import { ProjectItem } from "../../../core/models/portfolio.model";
   `,
 })
 export class ProjectCard {
+  readonly state = inject(PortfolioStateService);
   readonly project = input.required<ProjectItem>();
 }

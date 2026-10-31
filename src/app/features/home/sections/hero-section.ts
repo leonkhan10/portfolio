@@ -1,6 +1,7 @@
 import { DOCUMENT } from "@angular/common";
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
+import { Router } from "@angular/router";
 import { PortfolioStateService } from "../../../core/services/portfolio-state";
 import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal";
 
@@ -139,12 +140,12 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                         class="w-1.5 h-1.5 rounded-full bg-brand-500"
                         aria-hidden="true"
                       ></span>
-                      <span>Angular 18+ Expert</span>
+                      <span>{{ state.copy().heroCardBadge }}</span>
                     </span>
                     <span
                       class="text-[11px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-widest font-semibold transition-colors"
                     >
-                      ITMO Univ
+                      {{ state.copy().heroCardTag }}
                     </span>
                   </div>
 
@@ -171,7 +172,7 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
                       <div
                         class="text-[11px] text-slate-500 dark:text-slate-400 transition-colors"
                       >
-                        Frontend Specialist
+                        {{ state.copy().heroCardSubtitle }}
                       </div>
                     </div>
                     <div
@@ -192,11 +193,14 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
 export class HeroSection {
   readonly state = inject(PortfolioStateService);
   private readonly document = inject(DOCUMENT);
+  private readonly router = inject(Router);
 
   scrollToProjects(): void {
     const el = this.document?.getElementById("projects");
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      this.router.navigate(["/projects"]);
     }
   }
 }

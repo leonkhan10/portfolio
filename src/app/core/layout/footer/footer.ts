@@ -1,7 +1,8 @@
 import { DOCUMENT } from "@angular/common";
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { RouterLink } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
+import { RouterLink } from "@angular/router";
+import { PortfolioStateService } from "../../services/portfolio-state";
 
 @Component({
   selector: "app-footer",
@@ -19,29 +20,32 @@ import { MatIconModule } from "@angular/material/icon";
             class="w-2 h-2 rounded-full bg-brand-600"
             aria-hidden="true"
           ></span>
-          <span>© 2026 Raman Khan Ahmadi. All rights reserved.</span>
+          <span>{{ state.copy().footerRights }}</span>
         </div>
 
-        <nav aria-label="Footer Quick Links" class="flex items-center gap-6">
+        <nav
+          aria-label="Footer Quick Links"
+          class="flex flex-wrap items-center justify-center gap-6"
+        >
           <a
             routerLink="/about"
             class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors"
-            >About</a
+            >{{ state.copy().navAbout }}</a
           >
           <a
             routerLink="/projects"
             class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors"
-            >Projects</a
+            >{{ state.copy().navProjects }}</a
           >
           <a
             routerLink="/skills"
             class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors"
-            >Experience</a
+            >{{ state.copy().navSkills }}</a
           >
           <a
             routerLink="/contact"
             class="hover:text-slate-900 dark:hover:text-slate-200 transition-colors"
-            >Contact</a
+            >{{ state.copy().navContact }}</a
           >
 
           <button
@@ -49,7 +53,7 @@ import { MatIconModule } from "@angular/material/icon";
             (click)="scrollToTop()"
             class="inline-flex items-center gap-1 hover:text-slate-900 dark:hover:text-slate-200 transition-colors font-medium cursor-pointer"
           >
-            <span>Back to top</span>
+            <span>{{ state.copy().footerBackToTop }}</span>
             <mat-icon class="!w-3.5 !h-3.5 !text-[14px] leading-none"
               >arrow_upward</mat-icon
             >
@@ -60,6 +64,7 @@ import { MatIconModule } from "@angular/material/icon";
   `,
 })
 export class Footer {
+  readonly state = inject(PortfolioStateService);
   private readonly document = inject(DOCUMENT);
 
   scrollToTop(): void {

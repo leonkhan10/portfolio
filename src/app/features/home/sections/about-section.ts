@@ -15,16 +15,91 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
     >
       <div class="max-w-6xl mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <!-- Full-Stack IDE Code Window Mockup (Replaces missing vscode-snippet.png) -->
           <div appScrollReveal class="lg:col-span-5 order-2 lg:order-1">
             <div
-              class="rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 transition-colors"
+              class="rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl overflow-hidden bg-slate-900 text-slate-100 font-mono text-xs transition-colors"
             >
-              <img
-                src="vscode-snippet.png"
-                alt="Code architecture snippet from VS Code"
-                class="w-full h-auto object-cover block"
-                loading="lazy"
-              />
+              <!-- Window Title Bar -->
+              <div
+                class="px-4 py-3 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between"
+              >
+                <div class="flex items-center gap-2">
+                  <span
+                    class="w-3 h-3 rounded-full bg-rose-500/80"
+                    aria-hidden="true"
+                  ></span>
+                  <span
+                    class="w-3 h-3 rounded-full bg-amber-400/80"
+                    aria-hidden="true"
+                  ></span>
+                  <span
+                    class="w-3 h-3 rounded-full bg-emerald-500/80"
+                    aria-hidden="true"
+                  ></span>
+                </div>
+                <span class="text-[11px] text-slate-400">
+                  portfolio.controller.ts — NestJS + Prisma
+                </span>
+                <span
+                  class="text-[10px] px-2 py-0.5 rounded bg-brand-500/20 text-brand-300"
+                >
+                  TS
+                </span>
+              </div>
+
+              <!-- Code Body -->
+              <div class="p-5 space-y-1.5 leading-relaxed overflow-x-auto">
+                <div>
+                  <span class="text-purple-400">&#64;Controller</span>(<span
+                    class="text-emerald-300"
+                    >'api/projects'</span
+                  >)
+                </div>
+                <div>
+                  <span class="text-sky-400">export class</span>
+                  <span class="text-amber-300"> ProjectsController </span>&#123;
+                </div>
+                <div class="pl-4">
+                  <span class="text-sky-400">constructor</span>(<span
+                    class="text-sky-400"
+                    >private readonly</span
+                  >
+                  prisma: <span class="text-amber-300">PrismaService</span>)
+                  &#123;&#125;
+                </div>
+                <div class="pl-4 pt-1">
+                  <span class="text-purple-400">&#64;Get</span>()
+                </div>
+                <div class="pl-4">
+                  <span class="text-sky-400">async</span>
+                  <span class="text-indigo-300"> getVisibleProjects</span>()
+                  &#123;
+                </div>
+                <div class="pl-8">
+                  <span class="text-sky-400">return this</span
+                  >.prisma.project.<span class="text-indigo-300">findMany</span
+                  >(&#123;
+                </div>
+                <div class="pl-12">
+                  where: &#123; isVisible:
+                  <span class="text-amber-400">true</span> &#125;,
+                </div>
+                <div class="pl-8">&#125;);</div>
+                <div class="pl-4">&#125;</div>
+                <div>&#125;</div>
+              </div>
+
+              <!-- Status Footer Bar -->
+              <div
+                class="px-4 py-2 bg-slate-950/90 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400"
+              >
+                <span class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span>Angular 21 SSR + NestJS + MongoDB</span>
+                </span>
+                <span>UTF-8</span>
+              </div>
             </div>
           </div>
 

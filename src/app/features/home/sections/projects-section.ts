@@ -19,6 +19,7 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
       <div class="max-w-6xl mx-auto px-6">
         <div appScrollReveal class="mb-10">
           <app-section-header
+            headingId="projects-heading"
             [kicker]="state.copy().projectsKicker"
             [title]="state.copy().projectsTitle"
             [subtitle]="state.copy().projectsSubtitle"
@@ -63,6 +64,7 @@ import { ScrollRevealDirective } from "../../../shared/directives/scroll-reveal"
         <!-- Projects Grid -->
         <div
           appScrollReveal
+          [staggerChildren]="true"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           @for (project of state.filteredProjects(); track project.id) {
